@@ -1,0 +1,17 @@
+Your selected colors:
+
+    Text: #0a0905 - rgb(10, 9, 5) - hsl(48, 33%, 3%)
+    Background: #faf9f5 - rgb(250, 249, 245) - hsl(48, 33%, 97%)
+    Primary: #fdaf08 - rgb(253, 175, 8) - hsl(41, 98%, 51%)
+    Secondary: #aed2a3 - rgb(174, 210, 163) - hsl(106, 34%, 73%)
+    Accent: #84c28d - rgb(132, 194, 141) - hsl(129, 34%, 64%)
+
+Realtime Colors link for selected colors: https://www.realtimecolors.com/?colors=0a0905-faf9f5-fdaf08-aed2a3-84c28d&fonts=Savate-Inter
+
+Thanks for using RealtimeColors.com!
+
+Font:
+	Primary: Savate
+	Secondary: Inter
+
+Link: https://www.realtimecolors.com/?colors=0a0905-faf9f5-fdaf08-aed2a3-84c28d&fonts=Savate-Inter
