@@ -1,0 +1,330 @@
+.authPage {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-accent) 50%, var(--color-primary) 100%);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.authContainer {
+    width: 100%;
+    max-width: 1100px;
+}
+
+.authCard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: var(--color-white);
+    border-radius: 2rem;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(10, 9, 5, 0.2);
+    animation: scaleIn 0.5s ease-out;
+}
+
+/* Left Side - Branding */
+.authBranding {
+    padding: 4rem;
+    background: linear-gradient(135deg, var(--color-text) 0%, var(--color-gray-800) 100%);
+    color: var(--color-white);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.brandingContent {
+    animation: slideInLeft 0.6s ease-out;
+}
+
+.brandLogo {
+    width: 120px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.brandTagline {
+    font-family: var(--font-secondary);
+    font-size: 1.125rem;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+    opacity: 0.9;
+}
+
+.brandFeatures {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.brandFeature {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: var(--font-secondary);
+    font-size: 1rem;
+}
+
+.brandFeature svg {
+    flex-shrink: 0;
+    stroke-width: 3;
+    color: var(--color-primary);
+}
+
+/* Right Side - Form */
+.authForm {
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.formContent {
+    animation: slideInRight 0.6s ease-out;
+}
+
+.formTitle {
+    font-family: var(--font-primary);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 0.75rem;
+}
+
+.formSubtitle {
+    font-family: var(--font-secondary);
+    font-size: 1rem;
+    color: var(--color-gray-600);
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+}
+
+/* Google Button */
+.googleButton {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    font-family: var(--font-secondary);
+    font-size: 1.125rem;
+    font-weight: 600;
+    background-color: var(--color-white);
+    color: var(--color-text);
+    border: 2px solid var(--color-gray-300);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(10, 9, 5, 0.05);
+}
+
+.googleButton:hover:not(:disabled) {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(10, 9, 5, 0.1);
+}
+
+.googleButton:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.googleButton svg {
+    flex-shrink: 0;
+}
+
+.buttonSpiner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid var(--color-gray-200);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+/* Divider */
+.divider {
+    position: relative;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background-color: var(--color-gray-300);
+}
+
+.divider::before {
+    left: 0;
+}
+
+.divider::after {
+    right: 0;
+}
+
+.divider span {
+    position: relative;
+    padding: 0 1rem;
+    font-family: var(--font-secondary);
+    font-size: 0.875rem;
+    color: var(--color-gray-500);
+    background-color: var(--color-white);
+}
+
+/* Coming Soon */
+.comingSoon {
+    padding: 1.5rem;
+    background-color: var(--color-gray-100);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.comingSoon p {
+    font-family: var(--font-secondary);
+    font-size: 0.95rem;
+    color: var(--color-gray-600);
+    margin: 0;
+}
+
+/* Terms */
+.terms {
+    font-family: var(--font-secondary);
+    font-size: 0.875rem;
+    color: var(--color-gray-600);
+    text-align: center;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.terms a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.terms a:hover {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+}
+
+/* Switch Auth */
+.switchAuth {
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-gray-200);
+}
+
+.switchAuth p {
+    font-family: var(--font-secondary);
+    font-size: 0.95rem;
+    color: var(--color-gray-600);
+    margin: 0;
+}
+
+.switchAuth a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.switchAuth a:hover {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .authCard {
+        grid-template-columns: 1fr;
+    }
+
+    .authBranding {
+        padding: 3rem;
+    }
+
+    .authForm {
+        padding: 3rem;
+    }
+
+    .formTitle {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .authPage {
+        padding: 1rem;
+    }
+
+    .authBranding {
+        padding: 2.5rem 2rem;
+    }
+
+    .authForm {
+        padding: 2.5rem 2rem;
+    }
+
+    .brandLogo {
+        font-size: 2rem;
+    }
+
+    .brandTagline {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .formTitle {
+        font-size: 1.75rem;
+    }
+
+    .formSubtitle {
+        font-size: 0.95rem;
+        margin-bottom: 2rem;
+    }
+
+    .googleButton {
+        padding: 0.875rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .authBranding {
+        padding: 2rem 1.5rem;
+    }
+
+    .authForm {
+        padding: 2rem 1.5rem;
+    }
+
+    .brandLogo {
+        font-size: 1.75rem;
+    }
+
+    .brandFeatures {
+        gap: 1rem;
+    }
+
+    .brandFeature {
+        font-size: 0.95rem;
+    }
+
+    .formTitle {
+        font-size: 1.5rem;
+    }
+
+    .googleButton {
+        font-size: 0.95rem;
+    }
+}
