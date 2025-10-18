@@ -79,7 +79,7 @@ export default function Hero() {
             {/* Navigation Arrows */}
             <button
                 className={`${styles.navButton} ${styles.prev}`}
-                onClick={() => setCurrentSlide((prev) => (prev - + slides.length) % slides.length)}
+                onClick={() => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)}
                 aria-label='Previous slide'
             >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">

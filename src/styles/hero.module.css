@@ -1,0 +1,264 @@
+.hero {
+  position: relative;
+  height: 70vh;
+  overflow: hidden;
+  border-radius: 12px;
+  margin: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.slideContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+.slide:nth-child(1) {
+  background-image: url('/hero-1.png');
+}
+
+.slide:nth-child(2) {
+  background-image: url('/hero-2.png');
+}
+
+.slide:nth-child(3) {
+  background-image: url('/hero-3.png');
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.4) 0%,
+    rgba(0, 0, 0, 0.2) 50%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  z-index: 1;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+  max-width: 600px;
+  padding: 2rem;
+}
+
+.title {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.subtitle {
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  margin-bottom: 2rem;
+  opacity: 0.9;
+  line-height: 1.5;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  color: white;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+  background: linear-gradient(135deg, #ee5a24, #ff6b6b);
+}
+
+.cta svg {
+  transition: transform 0.3s ease;
+}
+
+.cta:hover svg {
+  transform: translateX(4px);
+}
+
+.indicators {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 3;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator.active {
+  background: white;
+  border-color: white;
+  transform: scale(1.2);
+}
+
+.indicator:hover {
+  border-color: white;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 3;
+  backdrop-filter: blur(10px);
+}
+
+.navButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.navButton.prev {
+  left: 2rem;
+}
+
+.navButton.next {
+  right: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero {
+    height: 50vh;
+    margin: 1rem 0.5rem;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .cta {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .navButton {
+    width: 40px;
+    height: 40px;
+  }
+
+  .navButton.prev {
+    left: 1rem;
+  }
+
+  .navButton.next {
+    right: 1rem;
+  }
+
+  .indicators {
+    bottom: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    height: 40vh;
+    margin: 0.5rem 0;
+    border-radius: 8px;
+  }
+
+  .content {
+    padding: 0.5rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .cta {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .navButton {
+    width: 35px;
+    height: 35px;
+  }
+
+  .navButton.prev {
+    left: 0.5rem;
+  }
+
+  .navButton.next {
+    right: 0.5rem;
+  }
+}

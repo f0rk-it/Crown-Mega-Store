@@ -19,11 +19,12 @@
 .container {
     max-width: var(--max-width-container);
     margin: 0 auto;
-    padding: 1rem 1.5rem;
+    padding: 0.75rem 1.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 2rem;
+    height: 70px;
 }
 
 /* Logo */
@@ -31,10 +32,15 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    width: 6rem;
-    height: auto;
+    height: 45px;
     cursor: pointer;
     transition: transform 0.3s ease;
+}
+
+.logo img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
 }
 
 .logo:hover {
@@ -177,10 +183,10 @@
 /* Mobile Menu */
 .mobileMenu {
     position: fixed;
-    top: 73px;
+    top: 70px;
     right: 0;
     width: 280px;
-    height: calc(100vh - 73px);
+    height: calc(100vh - 70px);
     background-color: var(--color-white);
     box-shadow: -4px 0 20px rgba(10, 9, 5, 0.1);
     padding: 2rem;
@@ -234,14 +240,35 @@
 /* Overlay */
 .overlay {
     position: fixed;
-    top: 73px;
+    top: 70px;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rbga(10, 9, 5, 0.5);
+    background-color: rgba(10, 9, 5, 0.5);
     backdrop-filter: blur(4px);
     animation: fadeIn 0.3s ease;
     z-index: 999;
+}
+
+/* Animations */
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 /* Responsive */
@@ -265,11 +292,12 @@
     }
 
     .container {
-        padding: 1rem;
+        padding: 0.5rem 1rem;
+        height: 60px;
     }
 
     .logo {
-        width: 4rem;
+        height: 35px;
     }
 
     .actions {
