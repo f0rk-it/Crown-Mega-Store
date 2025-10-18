@@ -106,7 +106,7 @@ export default function SignInPage() {
                             <div className={styles.switchAuth}>
                                 <p>
                                     Don't have an account?{' '}
-                                    <a href="/auth.sign/up">Sign Up</a>
+                                    <a href="/auth/signup">Sign Up</a>
                                 </p>
                             </div>
                         </div>
