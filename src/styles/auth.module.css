@@ -101,6 +101,22 @@
     line-height: 1.6;
 }
 
+/* Google Button Wrapper */
+.googleButtonWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.googleButtonWrapper > div {
+    width: 100% !important;
+}
+
+.googleButtonWrapper iframe {
+    width: 100% !important;
+}
+
 /* Google Button */
 .googleButton {
     width: 100%;
