@@ -28,7 +28,8 @@ export default function Navbar() {
     }, [])
 
     useEffect(() => {
-        if (isAuthenticated) {
+        // Only get cart count if user is authenticated and loading is complete
+        if (isAuthenticated && !useAuthStore.getState().loading) {
             getCartCount()
         }
     }, [isAuthenticated, getCartCount])

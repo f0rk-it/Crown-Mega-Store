@@ -1,5 +1,7 @@
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 
+
+// Get auth token from localStorage
 const getAuthToken = () => {
     if (typeof window !== 'undefined') {
         return localStorage.getItem('authToken')
@@ -28,15 +30,31 @@ async function apiRequest(endpoint, options = {}) {
 
     try {
         const response = await fetch(url, config)
-        const data = await response.json()
+
+        // Handle different response types
+        let data
+        const contentType = response.headers.get('content-type')
+
+        if (contentType && contentType.includes('application/json')) {
+            data = await response.json()
+        } else {
+            data = { detail: await response.text() }
+        }
 
         if (!response.ok) {
-            throw new Error(data.detail || 'API request failed')
+            // Create a more informative error
+            const error = new Error(data.detail || data.message || 'API request failed')
+            error.status = response.status
+            throw error
         }
 
         return data
+
     } catch (error) {
-        console.error('API Error:', error)
+        // Only log errors that aren't authentication related
+        if (!error.message?.includes('Not authenticated') && error.status !== 401) {
+            console.error('API error:', error)
+        }
         throw error
     }
 }
@@ -58,6 +76,12 @@ export const productsAPI = {
 
     search: (searchTerm) => {
         return apiRequest(`/api/products/search?q=${encodeURIComponent(searchTerm)}`, {
+            skipAuth: true
+        })
+    },
+
+    getCategories: () => {
+        return apiRequest('/api/products/categories', {
             skipAuth: true
         })
     },

@@ -54,7 +54,8 @@ export const useAuthStore = create((set) => ({
         try {
             await authAPI.logout()
         } catch (error) {
-            console.error('Logout error:', error)
+            // Silently fail - just clear local state
+            console.log('Logout API call failed, clearing local state anyway')
         }
 
         if (typeof window !== 'undefined') {

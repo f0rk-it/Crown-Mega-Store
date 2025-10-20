@@ -90,7 +90,7 @@ export default function SignInPage() {
                                     <GoogleLogin
                                         onSuccess={handleGoogleSuccess}
                                         onError={handleGoogleError}
-                                        useOneTap
+                                        useOneTap={false}
                                         theme='outline'
                                         size='large'
                                         text='continue_with'

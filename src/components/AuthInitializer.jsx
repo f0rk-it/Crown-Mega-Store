@@ -5,18 +5,18 @@ import { useAuthStore } from "@/store/authStore"
 import { userCartStore } from "@/store/cartStore"
 
 export default function AuthInitializer({ children }) {
-    const {initAuth, isAuthenticated} = useAuthStore()
-    const {fetchCart} = userCartStore()
+    const { initAuth, isAuthenticated, loading } = useAuthStore()
+    const { fetchCart } = userCartStore()
 
     useEffect(() => {
         initAuth()
     }, [initAuth])
 
     useEffect(() => {
-        if (isAuthenticated) {
+        if ( !loading && isAuthenticated) {
             fetchCart()
         }
-    }, [isAuthenticated, fetchCart])
+    }, [isAuthenticated, loading, fetchCart])
 
     return children
 }

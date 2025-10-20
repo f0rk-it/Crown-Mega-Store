@@ -19,8 +19,18 @@ export const userCartStore = create((set, get) => ({
                 loading: false
             })
         } catch (error) {
-            console.error('Fetch cart error:', error)
-            set({ loading: false })
+            // Silently fail if not authenticated
+            if (error.message?.includes('Not authenticated') || error.message?.includes('401')) {
+                set({
+                    items: [],
+                    total: 0,
+                    itemCount: 0,
+                    loading: false
+                })
+            } else {
+                console.error('Failed to fetch cart:', error)
+                set({ loading: false })
+            }
         }
     },
 
@@ -82,7 +92,12 @@ export const userCartStore = create((set, get) => ({
             const data = await cartAPI.getCount()
             set({ itemCount: data.count })
         } catch (error) {
-            console.error('Get cart count error:', error)
+            // Silently fail if not authenticated
+            if (error.message?.includes('Not authenticated') || error.message?.includes('401')) {
+                set({ itemCount: 0 })
+            } else {
+                console.error('Failed to get cart count:', error)
+            }
         }
     },
 }))
