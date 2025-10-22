@@ -63,30 +63,28 @@ export default function ProductDetailPage() {
     }
 
     const handleAddToCart = async () => {
-        if (!isAuthenticated) {
-            toast.error('Please sign in to add items to cart')
-            router.push(`/auth/signin?redirect=/products/${params.id}`)
-            return
-        }
-
         setAddingToCart(true)
         try {
-            const success = await addItem(product.id, quantity)
+            await addItem(product.id, quantity)
+            
+            toast.success(`${product.name} added to cart!`)
 
-            if (success) {
-                toast.success(`${product.name} added to cart!`)
-
-                // Track add to cart activity
-                try {
-                    await recommendationsAPI.trackActivity(product.id, 'add_to_cart')
-                } catch (error) {
-                    // Silently fail
-                }
-            } else {
-                toast.error('Failed to add to cart')
+            // Track add to cart activity
+            try {
+                await recommendationsAPI.trackActivity(product.id, 'add_to_cart')
+            } catch (error) {
+                // Silently fail tracking
             }
         } catch (error) {
-            toast.error('Failed to add to cart')
+            console.error('Add to cart error:', error)
+            
+            // Handle authentication errors specifically
+            if (error.message?.includes('sign in')) {
+                toast.error(error.message)
+                router.push(`/auth/signin?redirect=/products/${params.id}`)
+            } else {
+                toast.error(error.message || 'Failed to add to cart')
+            }
         } finally {
             setAddingToCart(false)
         }

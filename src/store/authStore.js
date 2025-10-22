@@ -11,7 +11,11 @@ export const useAuthStore = create((set) => ({
     initAuth: async () => {
         if (typeof window === 'undefined') return
 
-        const token = localStorage.getItem('token')
+        // Clear any old token formats
+        localStorage.removeItem('token')
+        localStorage.removeItem('access_token')
+        
+        const token = localStorage.getItem('authToken')
 
         if (token) {
             try {
@@ -23,8 +27,9 @@ export const useAuthStore = create((set) => ({
                     loading: false
                 })
             } catch (error) {
+                console.warn('Token validation failed, clearing auth:', error.message)
                 // Token invalid, clear it
-                localStorage.removeItem('token')
+                localStorage.removeItem('authToken')
                 set({
                     user: null,
                     token: null,
@@ -33,14 +38,19 @@ export const useAuthStore = create((set) => ({
                 })
             }
         } else {
-            set({ loading: false })
+            set({ 
+                user: null,
+                token: null,
+                isAuthenticated: false,
+                loading: false 
+            })
         }
     },
 
     // Login
     login: (userData, accessToken) => {
         if (typeof window !== 'undefined') {
-            localStorage.setItem('token', accessToken)
+            localStorage.setItem('authToken', accessToken)
         }
         set({
             user: userData,
@@ -59,7 +69,7 @@ export const useAuthStore = create((set) => ({
         }
 
         if (typeof window !== 'undefined') {
-            localStorage.removeItem('token')
+            localStorage.removeItem('authToken')
         }
 
         set({

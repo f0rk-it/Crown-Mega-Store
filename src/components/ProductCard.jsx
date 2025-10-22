@@ -2,15 +2,40 @@
 
 import Link from "next/link"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { userCartStore } from "@/store/cartStore"
+import { useAuthStore } from "@/store/authStore"
+import toast from "react-hot-toast"
 import styles from '../styles/productCard.module.css'
 
 export default function ProductCard({ product, index }) {
     const [imageLoaded, setImageLoaded] = useState(false)
+    const [addingToCart, setAddingToCart] = useState(false)
+    const { addItem } = userCartStore()
+    const { isAuthenticated } = useAuthStore()
+    const router = useRouter()
 
-    const handleAddToCart = (e) => {
+    const handleAddToCart = async (e) => {
         e.preventDefault()
-        // TODO: Add to cart functionality
-        console.log(`Add to cart: ${product.name}`)
+        e.stopPropagation()
+        
+        setAddingToCart(true)
+        try {
+            await addItem(product.id, 1)
+            toast.success(`${product.name} added to cart!`)
+        } catch (error) {
+            console.error('Add to cart error:', error)
+            
+            // Handle authentication errors specifically
+            if (error.message?.includes('sign in')) {
+                toast.error(error.message)
+                router.push(`/auth/signin?redirect=/products/${product.id}`)
+            } else {
+                toast.error(error.message || 'Failed to add to cart')
+            }
+        } finally {
+            setAddingToCart(false)
+        }
     }
 
     return (
@@ -41,13 +66,17 @@ export default function ProductCard({ product, index }) {
                     <button
                         className={styles.quickAction}
                         onClick={handleAddToCart}
-                        disabled={product.stock_quantity === 0}
+                        disabled={product.stock_quantity === 0 || addingToCart}
                     >
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-                            <line x1="3" y1="6" x2="21" y2="6"/>
-                            <path d="M16 10a4 4 0 0 1-8 0"/>
-                        </svg>
+                        {addingToCart ? (
+                            <div className={styles.spinner}></div>
+                        ) : (
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                                <line x1="3" y1="6" x2="21" y2="6"/>
+                                <path d="M16 10a4 4 0 0 1-8 0"/>
+                            </svg>
+                        )}
                     </button>
                     <button className={styles.quickAction}>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">

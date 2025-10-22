@@ -101,6 +101,15 @@ export const cartAPI = {
         })
     },
 
+    update: (productId, quantity) => {
+        // Since /api/cart/update doesn't exist, use remove + add approach
+        return cartAPI.remove(productId).then(() => {
+            if (quantity > 0) {
+                return cartAPI.add(productId, quantity)
+            }
+        })
+    },
+
     remove: (productId) => {
         return apiRequest(`/api/cart/remove/${productId}`, {
             method: 'DELETE'
@@ -189,7 +198,7 @@ export const authAPI = {
 
     logout: () => {
         if (typeof window !== 'undefined') {
-            localStorage.removeItem('token')
+            localStorage.removeItem('authToken')
         }
         return apiRequest('/api/auth/logout', {
             method: 'POST'
