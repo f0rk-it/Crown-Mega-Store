@@ -30,6 +30,13 @@ export default function MyOrdersPage() {
         try {
             setLoading(true)
             setError(null)
+            
+            // Debug logging
+            console.log('Fetching orders with auth status:', isAuthenticated)
+            console.log('User:', user)
+            console.log('Auth token exists:', !!localStorage.getItem('authToken'))
+            console.log('API URL:', process.env.NEXT_PUBLIC_API_URL)
+            
             const ordersData = await ordersAPI.getMyOrders(selectedStatus || null)
             console.log('My orders response:', ordersData)
             
@@ -38,6 +45,11 @@ export default function MyOrdersPage() {
             setOrders(ordersList)
         } catch (error) {
             console.error('Fetch orders error:', error)
+            console.error('Error details:', {
+                message: error.message,
+                status: error.status,
+                response: error.response
+            })
             setError('Failed to load orders. Please try again.')
             setOrders([])
         } finally {
