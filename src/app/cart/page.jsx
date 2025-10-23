@@ -11,7 +11,6 @@ import styles from './cart.module.css'
 export default function CartPage() {
     const router = useRouter()
     const { items, total, loading, fetchCart, updateItem, removeItem, clearCart } = userCartStore()
-    const [checkoutLoading, setCheckoutLoading] = useState(false)
     const [updatingItems, setUpdatingItems] = useState(new Set())
 
     useEffect(() => {
@@ -84,26 +83,8 @@ export default function CartPage() {
             return
         }
 
-        setCheckoutLoading(true)
-        try {
-            const orderData = {
-                items: items.map(item => ({
-                    product_id: item.product_id || item.id,
-                    quantity: item.quantity || 1,
-                    price: item.price || 0
-                })),
-                total: total
-            }
-
-            const order = await ordersAPI.create(orderData)
-            toast.success('Order placed successfully!')
-            router.push(`/orders/${order.id}`)
-        } catch (error) {
-            console.error('Checkout error:', error)
-            toast.error('Failed to place order. Please try again.')
-        } finally {
-            setCheckoutLoading(false)
-        }
+        // Redirect to checkout page instead of placing order directly
+        router.push('/checkout')
     }
 
     if (loading) {
@@ -272,16 +253,8 @@ export default function CartPage() {
                                     <button 
                                         className={styles.checkoutButton}
                                         onClick={handleCheckout}
-                                        disabled={checkoutLoading}
                                     >
-                                        {checkoutLoading ? (
-                                            <>
-                                                <div className={styles.buttonSpinner}></div>
-                                                Processing...
-                                            </>
-                                        ) : (
-                                            'Proceed to Checkout'
-                                        )}
+                                        Proceed to Checkout
                                     </button>
                                     
                                     <button 
