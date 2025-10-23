@@ -119,6 +119,12 @@
     transform: scale(1.1);
 }
 
+.searchButton:hover {
+    background-color: var(--color-primary);
+    color: var(--color-text);
+    transform: scale(1.1) translateY(-1px);
+}
+
 .iconButton svg {
     stroke-width: 2;
 }
@@ -423,6 +429,33 @@
 .mobileSignOut:hover {
     background-color: #c82333;
     transform: scale(1.05);
+}
+
+.mobileSearchButton {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-secondary);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--color-text);
+    background: none;
+    border: 1px solid var(--color-border);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    min-height: 44px;
+    margin-bottom: 0.5rem;
+}
+
+.mobileSearchButton:hover {
+    background-color: var(--color-primary);
+    color: var(--color-text);
+    transform: translateX(8px);
+    border-color: var(--color-primary);
 }
 
 /* Overlay */

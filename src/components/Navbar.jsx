@@ -5,6 +5,7 @@ import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { useAuthStore } from "@/store/authStore"
 import { userCartStore } from "@/store/cartStore"
+import SearchModal from "./SearchModal"
 import toast from "react-hot-toast"
 import styles from '../styles/navbar.module.css'
 
@@ -12,6 +13,7 @@ export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false)
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
     const [showUserMenu, setShowUserMenu] = useState(false)
+    const [showSearchModal, setShowSearchModal] = useState(false)
     const pathname = usePathname()
     const router = useRouter()
 
@@ -54,6 +56,19 @@ export default function Navbar() {
         }
     }, [isMobileMenuOpen])
 
+    // Keyboard shortcut for search
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault()
+                handleSearchClick()
+            }
+        }
+
+        document.addEventListener('keydown', handleKeyDown)
+        return () => document.removeEventListener('keydown', handleKeyDown)
+    }, [])
+
     useEffect(() => {
         // Only get cart count if user is authenticated and loading is complete
         if (isAuthenticated && !useAuthStore.getState().loading) {
@@ -93,6 +108,17 @@ export default function Navbar() {
         setShowUserMenu(false)
     }
 
+    const handleSearchClick = () => {
+        setShowSearchModal(true)
+        // Close other menus
+        setIsMobileMenuOpen(false)
+        setShowUserMenu(false)
+    }
+
+    const handleCloseSearch = () => {
+        setShowSearchModal(false)
+    }
+
     const navLinks = [
         { href: '/', label: 'Home' },
         { href: '/products', label: 'Products' },
@@ -127,7 +153,12 @@ export default function Navbar() {
                 {/* Right Actions */}
                 <div className={styles.actions}>
                     {/* Search Icon */}
-                    <button className={styles.iconButton} aria-label="Search">
+                    <button 
+                        className={`${styles.iconButton} ${styles.searchButton}`}
+                        aria-label="Search products (Ctrl+K)"
+                        title="Search products (Ctrl+K)"
+                        onClick={handleSearchClick}
+                    >
                         <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor'>
                             <circle cx='11' cy='11' r='8' />
                             <path d='m21 21-4.35-4.35' />
@@ -238,6 +269,21 @@ export default function Navbar() {
 
             {/* Mobile Menu */}
             <div className={`${styles.mobileMenu} ${isMobileMenuOpen ? styles.open : ''}`}>
+                {/* Search Link for Mobile */}
+                <button
+                    className={styles.mobileSearchButton}
+                    onClick={() => {
+                        handleSearchClick()
+                        closeMobileMenu()
+                    }}
+                >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="m21 21-4.35-4.35" />
+                    </svg>
+                    Search Products
+                </button>
+
                 {navLinks.map((link) => (
                     <Link
                         key={link.href}
@@ -304,6 +350,9 @@ export default function Navbar() {
                     }}
                 ></div>
             )}
+
+            {/* Search Modal */}
+            <SearchModal isOpen={showSearchModal} onClose={handleCloseSearch} />
         </nav>
     )
 }

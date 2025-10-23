@@ -1,0 +1,340 @@
+/* Search Modal Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(10, 9, 5, 0.7);
+    backdrop-filter: blur(8px);
+    z-index: 2000;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem 1rem;
+    animation: fadeIn 0.2s ease-out;
+}
+
+/* Search Modal Container */
+.modal {
+    width: 100%;
+    max-width: 600px;
+    background-color: var(--color-white);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 20px 60px rgba(10, 9, 5, 0.3);
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    animation: slideUp 0.3s ease-out;
+    margin-top: 4rem;
+}
+
+/* Search Header */
+.searchHeader {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.searchInputContainer {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: var(--color-background);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    transition: all 0.2s ease;
+}
+
+.searchInputContainer:focus-within {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.1);
+}
+
+.searchIcon {
+    padding: 0 1rem;
+    color: var(--color-text-muted);
+    display: flex;
+    align-items: center;
+}
+
+.searchInput {
+    width: 100%;
+    padding: 1rem 0;
+    border: none;
+    background: transparent;
+    font-size: 1.1rem;
+    color: var(--color-text);
+    outline: none;
+    font-family: var(--font-secondary);
+}
+
+.searchInput::placeholder {
+    color: var(--color-text-muted);
+}
+
+.loadingSpinner {
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--color-border);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.closeButton {
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: var(--radius-md);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.closeButton:hover {
+    background-color: var(--color-border);
+    color: var(--color-text);
+}
+
+/* Suggestions */
+.suggestions {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+.suggestionsHeader {
+    padding: 1rem 1.5rem 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.suggestionsHeader h3 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+.suggestionsList {
+    padding: 0.5rem;
+}
+
+.suggestion {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.suggestion:hover,
+.suggestion.selected {
+    background-color: var(--color-background);
+    border-color: var(--color-primary);
+}
+
+.suggestionImage {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background-color: var(--color-border);
+    flex-shrink: 0;
+}
+
+.suggestionImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.suggestionContent {
+    flex: 1;
+    min-width: 0;
+}
+
+.suggestionName {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 0.25rem 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.suggestionPrice {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0 0 0.25rem 0;
+}
+
+.suggestionCategory {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    background-color: var(--color-border);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    display: inline-block;
+}
+
+.noSuggestions {
+    padding: 2rem 1rem;
+    text-align: center;
+    color: var(--color-text-muted);
+}
+
+.noSuggestions p {
+    margin: 0;
+    font-style: italic;
+}
+
+/* Search All Button */
+.searchAllContainer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.searchAllButton {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: var(--color-primary);
+    color: var(--color-text);
+    border: none;
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+}
+
+.searchAllButton:hover {
+    background-color: var(--color-primary-dark);
+    transform: translateY(-1px);
+}
+
+/* No Results */
+.noResults {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.noResultsIcon {
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.noResults h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 0.5rem 0;
+}
+
+.noResults p {
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .overlay {
+        padding: 1rem 0.5rem;
+        align-items: flex-start;
+    }
+
+    .modal {
+        margin-top: 2rem;
+        border-radius: var(--radius-lg);
+    }
+
+    .searchHeader {
+        padding: 1rem;
+    }
+
+    .suggestion {
+        padding: 0.75rem;
+    }
+
+    .suggestionImage {
+        width: 40px;
+        height: 40px;
+    }
+
+    .suggestionName {
+        font-size: 0.9rem;
+    }
+
+    .searchAllButton {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .overlay {
+        padding: 0.5rem;
+    }
+
+    .modal {
+        margin-top: 1rem;
+        max-height: 85vh;
+    }
+
+    .searchInput {
+        font-size: 1rem;
+    }
+}
