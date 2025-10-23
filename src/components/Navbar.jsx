@@ -27,6 +27,33 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
 
+    // Prevent body scroll when mobile menu is open
+    useEffect(() => {
+        if (isMobileMenuOpen) {
+            document.body.style.overflow = 'hidden'
+            document.body.style.position = 'fixed'
+            document.body.style.top = `-${window.scrollY}px`
+            document.body.style.width = '100%'
+        } else {
+            const scrollY = document.body.style.top
+            document.body.style.overflow = ''
+            document.body.style.position = ''
+            document.body.style.top = ''
+            document.body.style.width = ''
+            if (scrollY) {
+                window.scrollTo(0, parseInt(scrollY || '0') * -1)
+            }
+        }
+
+        return () => {
+            // Cleanup on unmount
+            document.body.style.overflow = ''
+            document.body.style.position = ''
+            document.body.style.top = ''
+            document.body.style.width = ''
+        }
+    }, [isMobileMenuOpen])
+
     useEffect(() => {
         // Only get cart count if user is authenticated and loading is complete
         if (isAuthenticated && !useAuthStore.getState().loading) {
@@ -43,6 +70,27 @@ export default function Navbar() {
         } catch (error) {
             toast.error('Failed to logout')
         }
+    }
+
+    const handleMobileMenuToggle = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen)
+        // Close user menu if open
+        if (showUserMenu) {
+            setShowUserMenu(false)
+        }
+    }
+
+    const closeMobileMenu = () => {
+        setIsMobileMenuOpen(false)
+    }
+
+    const closeUserMenu = () => {
+        setShowUserMenu(false)
+    }
+
+    const handleOverlayClick = () => {
+        setIsMobileMenuOpen(false)
+        setShowUserMenu(false)
     }
 
     const navLinks = [
@@ -175,8 +223,9 @@ export default function Navbar() {
                     {/* Mobile Menu Toggle */}
                     <button
                         className={styles.menuToggle}
-                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        onClick={handleMobileMenuToggle}
                         aria-label="Toggle Menu"
+                        aria-expanded={isMobileMenuOpen}
                     >
                         <span className={`${styles.hamburger} ${isMobileMenuOpen ? styles.open : ''}`}>
                             <span></span>
@@ -196,7 +245,7 @@ export default function Navbar() {
                         className={`${styles.mobileLink} ${
                             pathname === link.href ? styles.active : ''
                         }`}
-                        onClick={() => setIsMobileMenuOpen(false)}
+                        onClick={closeMobileMenu}
                     >
                         {link.label}
                     </Link>
@@ -207,7 +256,7 @@ export default function Navbar() {
                         <Link
                             href='/dashboard'
                             className={styles.mobileLink}
-                            onClick={() => setIsMobileMenuOpen(false)}
+                            onClick={closeMobileMenu}
                         >
                             My Account
                         </Link>
@@ -215,7 +264,7 @@ export default function Navbar() {
                         <Link
                             href='/orders'
                             className={styles.mobileLink}
-                            onClick={() => setIsMobileMenuOpen(false)}
+                            onClick={closeMobileMenu}
                         >
                             My Orders
                         </Link>
@@ -224,7 +273,7 @@ export default function Navbar() {
                             className={styles.mobileSignOut}
                             onClick={() => {
                                 handleLogout()
-                                setIsMobileMenuOpen(false)
+                                closeMobileMenu()
                             }}
                         >
                             Logout
@@ -234,7 +283,7 @@ export default function Navbar() {
                     <Link
                         href='/auth/signin'
                         className={styles.mobileSignIn}
-                        onClick={() => setIsMobileMenuOpen(false)}
+                        onClick={closeMobileMenu}
                     >
                         Sign In
                     </Link>
@@ -245,9 +294,13 @@ export default function Navbar() {
             {(isMobileMenuOpen || showUserMenu) && (
                 <div
                     className={styles.overlay}
-                    onClick={() => {
-                        setIsMobileMenuOpen(false)
-                        setShowUserMenu(false)
+                    onClick={handleOverlayClick}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Escape') {
+                            handleOverlayClick()
+                        }
                     }}
                 ></div>
             )}

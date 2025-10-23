@@ -294,6 +294,12 @@
     border: none;
     cursor: pointer;
     padding: 0.5rem;
+    min-width: 44px;
+    min-height: 44px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    z-index: 1002;
 }
 
 .hamburger {
@@ -341,10 +347,17 @@
     transform: translateX(100%);
     transition: transform 0.3s ease;
     overflow-y: auto;
+    z-index: 1001;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
 }
 
 .mobileMenu.open {
     transform: translateX(0);
+    pointer-events: auto;
+    opacity: 1;
+    visibility: visible;
 }    
 
 .mobileLink {
@@ -356,6 +369,10 @@
     padding: 1rem;
     border-radius: var(--radius-md);
     transition: all 0.2s ease;
+    display: block;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    min-height: 44px;
 }
 
 .mobileLink:hover,
@@ -375,10 +392,36 @@
     font-weight: 600;
     text-decoration: none;
     transition: all 0.2s ease;
+    display: block;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    min-height: 44px;
 }
 
 .mobileSignIn:hover {
     background-color: var(--color-primary-dark);
+    transform: scale(1.05);
+}
+
+.mobileSignOut {
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #dc3545;
+    color: white;
+    text-align: center;
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    min-height: 44px;
+}
+
+.mobileSignOut:hover {
+    background-color: #c82333;
     transform: scale(1.05);
 }
 
@@ -392,7 +435,8 @@
     background-color: rgba(10, 9, 5, 0.5);
     backdrop-filter: blur(4px);
     animation: fadeIn 0.3s ease;
-    z-index: 999;
+    z-index: 1000;
+    touch-action: auto;
 }
 
 /* Animations */
