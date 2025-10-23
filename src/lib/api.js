@@ -130,16 +130,14 @@ export const ordersAPI = {
     checkout: (orderData) => {
         return apiRequest('/api/orders/checkout', {
             method: 'POST',
-            body: JSON.stringify(orderData),
-            skipAuth: true
+            body: JSON.stringify(orderData)
         })
     },
 
     create: (orderData) => {
         return apiRequest('/api/orders/checkout', {
             method: 'POST',
-            body: JSON.stringify(orderData),
-            skipAuth: true
+            body: JSON.stringify(orderData)
         })
     },
 

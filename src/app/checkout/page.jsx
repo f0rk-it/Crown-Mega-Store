@@ -139,7 +139,13 @@ export default function CheckoutPage() {
         setIsLoading(true)
         try {
             const orderData = prepareOrderData()
+            console.log('Checkout: Sending order data:', orderData)
+            console.log('Checkout: Auth status:', isAuthenticated)
+            console.log('Checkout: User:', user)
+            console.log('Checkout: Auth token:', localStorage.getItem('authToken'))
+            
             const response = await ordersAPI.checkout(orderData)
+            console.log('Checkout: API response:', response)
             
             if (response.success) {
                 // Clear cart
