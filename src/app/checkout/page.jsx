@@ -107,23 +107,31 @@ export default function CheckoutPage() {
     }
 
     const prepareOrderData = () => {
-        return {
+        console.log('Cart items before preparation:', cartItems)
+        
+        // Calculate total
+        const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+        
+        const orderData = {
             items: cartItems.map(item => ({
-                product_id: item.product_id,
+                product_id: item.product_id || item.id,
                 product_name: item.product_name || item.name,
                 quantity: item.quantity,
-                price: item.price
+                price: parseFloat(item.price)
             })),
             customer_info: {
                 name: customerInfo.name.trim(),
-                email: customerInfo.email.trim(),
+                email: customerInfo.email.trim(), // Required by API validation even if not stored in DB
                 phone: customerInfo.phone.replace(/\s/g, ''),
-                delivery_address: customerInfo.pickup_preference ? null : customerInfo.delivery_address.trim(),
-                pickup_preference: customerInfo.pickup_preference,
-                order_notes: customerInfo.order_notes.trim() || null,
-                payment_preference: customerInfo.payment_preference
+                delivery_address: customerInfo.pickup_preference ? null : (customerInfo.delivery_address ? customerInfo.delivery_address.trim() : null),
+                pickup_preference: Boolean(customerInfo.pickup_preference),
+                order_notes: customerInfo.order_notes ? customerInfo.order_notes.trim() : null,
+                payment_preference: customerInfo.payment_preference || 'bank_transfer'
             }
         }
+        
+        console.log('Prepared order data:', orderData)
+        return orderData
     }
 
     const handlePlaceOrder = async () => {
@@ -139,7 +147,7 @@ export default function CheckoutPage() {
         setIsLoading(true)
         try {
             const orderData = prepareOrderData()
-            console.log('Checkout: Sending order data:', orderData)
+            console.log('Checkout: Sending order data:', JSON.stringify(orderData, null, 2))
             console.log('Checkout: Auth status:', isAuthenticated)
             console.log('Checkout: User:', user)
             console.log('Checkout: Auth token:', localStorage.getItem('authToken'))
@@ -151,7 +159,7 @@ export default function CheckoutPage() {
                 // Clear cart
                 await clearCart()
                 
-                toast.success('Order placed successfully!')
+                toast.success('Order placed successfully! Check your email for confirmation.')
                 
                 // Redirect to order confirmation page
                 router.push(`/order/${response.order_id}`)
@@ -160,7 +168,22 @@ export default function CheckoutPage() {
             }
         } catch (error) {
             console.error('Checkout error:', error)
-            toast.error(error.message || 'Failed to place order. Please try again.')
+            console.error('Error status:', error.status)
+            console.error('Error response:', error.response)
+            
+            let errorMessage = 'Failed to place order. Please try again.'
+            
+            if (error.message && error.message !== '[object Object]') {
+                errorMessage = error.message
+            } else if (error.response) {
+                if (typeof error.response === 'string') {
+                    errorMessage = error.response
+                } else {
+                    errorMessage = `Order creation failed: ${JSON.stringify(error.response)}`
+                }
+            }
+            
+            toast.error(errorMessage)
         } finally {
             setIsLoading(false)
             setShowConfirmation(false)

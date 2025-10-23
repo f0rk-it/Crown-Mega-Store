@@ -4,6 +4,7 @@
     margin: 0 auto;
     padding: 2rem 1.5rem;
     min-height: calc(100vh - 140px);
+    margin-top: 73px;
 }
 
 /* Loading State */
@@ -337,10 +338,13 @@
 .actions {
     display: flex;
     gap: 1rem;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .continueButton,
+.trackButton,
 .printButton {
     padding: 1rem 1.5rem;
     border-radius: var(--radius-lg);
@@ -361,6 +365,17 @@
 
 .continueButton:hover {
     background-color: var(--color-primary-dark);
+    transform: translateY(-2px);
+}
+
+.trackButton {
+    background-color: var(--color-secondary);
+    color: var(--color-text);
+    border: none;
+}
+
+.trackButton:hover {
+    background-color: var(--color-accent);
     transform: translateY(-2px);
 }
 
@@ -443,6 +458,13 @@
 
     .actions {
         gap: 0.75rem;
+        flex-direction: column;
+    }
+
+    .continueButton,
+    .trackButton,
+    .printButton {
+        width: 100%;
     }
 }
 

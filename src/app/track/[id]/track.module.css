@@ -1,0 +1,591 @@
+/* Order Tracking Page Container */
+.container {
+    max-width: var(--max-width-container);
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    min-height: calc(100vh - 140px);
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.header h1 {
+    font-family: var(--font-primary);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0 0 0.5rem 0;
+}
+
+.header p {
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.orderId {
+    color: var(--color-primary);
+    font-weight: 600;
+    font-family: monospace;
+}
+
+/* Loading & Error States */
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--color-border);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+.loading p {
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.errorIcon {
+    color: #dc3545;
+    margin-bottom: 1.5rem;
+}
+
+.error h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 1rem 0;
+}
+
+.error p {
+    color: var(--color-text-muted);
+    margin: 0 0 2rem 0;
+    max-width: 400px;
+}
+
+.errorActions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.ordersButton,
+.shopButton {
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.ordersButton {
+    background-color: var(--color-primary);
+    color: var(--color-text);
+}
+
+.ordersButton:hover {
+    background-color: var(--color-primary-dark);
+    transform: translateY(-1px);
+}
+
+.shopButton {
+    background-color: transparent;
+    color: var(--color-text);
+    border: 2px solid var(--color-border);
+}
+
+.shopButton:hover {
+    border-color: var(--color-primary);
+    background-color: rgba(255, 193, 7, 0.1);
+}
+
+/* Tracking Card */
+.trackingCard {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(10, 9, 5, 0.1);
+}
+
+/* Order Summary */
+.orderSummary {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid var(--color-border);
+}
+
+.summaryHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.summaryHeader h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0;
+}
+
+.orderMeta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+}
+
+.totalAmount {
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.deliveryInfo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.deliveryType strong {
+    color: var(--color-text);
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.address {
+    color: var(--color-text-muted);
+    margin: 0.5rem 0 0 0;
+    line-height: 1.5;
+}
+
+.estimatedDelivery {
+    text-align: right;
+}
+
+.estimatedLabel {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.estimatedDate {
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Tracking Timeline */
+.trackingTimeline {
+    margin-bottom: 3rem;
+}
+
+.trackingTimeline h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 2rem 0;
+}
+
+.timeline {
+    position: relative;
+}
+
+.timelineStep {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+}
+
+.timelineStep.completed .stepIcon {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-color: var(--color-primary);
+}
+
+.timelineStep.current .stepIcon {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-color: var(--color-primary);
+    animation: pulse 2s infinite;
+}
+
+.timelineStep.upcoming .stepIcon {
+    background-color: var(--color-white);
+    color: var(--color-text-muted);
+    border-color: var(--color-border);
+}
+
+.stepIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    z-index: 2;
+    position: relative;
+}
+
+.stepContent {
+    flex: 1;
+    padding-top: 0.5rem;
+}
+
+.stepContent h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 0.5rem 0;
+}
+
+.stepContent p {
+    color: var(--color-text-muted);
+    margin: 0 0 0.5rem 0;
+    line-height: 1.5;
+}
+
+.estimatedTime {
+    color: var(--color-primary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    background-color: rgba(255, 193, 7, 0.1);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+}
+
+.stepConnector {
+    position: absolute;
+    left: 23px;
+    top: 60px;
+    bottom: -12px;
+    width: 2px;
+    background-color: var(--color-border);
+    z-index: 1;
+}
+
+.timelineStep.completed .stepConnector {
+    background-color: var(--color-primary);
+}
+
+.timelineStep:last-child .stepConnector {
+    display: none;
+}
+
+/* Order Items */
+.orderItems h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 1.5rem 0;
+}
+
+.itemsList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.orderItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--color-background);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+}
+
+.itemInfo h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 0.25rem 0;
+}
+
+.itemInfo p {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.itemTotal {
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.moreItems {
+    color: var(--color-text-muted);
+    font-style: italic;
+    text-align: center;
+    margin: 0.5rem 0 0 0;
+    padding: 0.5rem;
+}
+
+/* Support Section */
+.supportSection {
+    margin-bottom: 2rem;
+}
+
+.supportCard {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    text-align: center;
+}
+
+.supportCard h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 1rem 0;
+}
+
+.supportCard p {
+    color: var(--color-text-muted);
+    margin: 0 0 2rem 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contactMethods {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.contactMethod {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.contactMethod strong {
+    color: var(--color-text);
+    font-size: 1rem;
+}
+
+.contactMethod span {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+}
+
+/* Actions */
+.actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.viewDetailsButton,
+.continueButton,
+.refreshButton {
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-block;
+    text-align: center;
+    border: none;
+    font-size: 1rem;
+}
+
+.viewDetailsButton {
+    background-color: var(--color-primary);
+    color: var(--color-text);
+}
+
+.viewDetailsButton:hover {
+    background-color: var(--color-primary-dark);
+    transform: translateY(-1px);
+}
+
+.continueButton {
+    background-color: transparent;
+    color: var(--color-text);
+    border: 2px solid var(--color-border);
+}
+
+.continueButton:hover {
+    border-color: var(--color-primary);
+    background-color: rgba(255, 193, 7, 0.1);
+}
+
+.refreshButton {
+    background-color: var(--color-secondary);
+    color: var(--color-text);
+    border: 2px solid var(--color-secondary);
+}
+
+.refreshButton:hover {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+}
+
+/* Animations */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.7);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 10px rgba(255, 193, 7, 0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .deliveryInfo {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .estimatedDelivery {
+        text-align: left;
+    }
+
+    .contactMethods {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .trackingCard {
+        padding: 1.5rem;
+    }
+
+    .summaryHeader {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .orderMeta {
+        align-items: flex-start;
+    }
+
+    .timelineStep {
+        gap: 1rem;
+    }
+
+    .stepIcon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .stepConnector {
+        left: 19px;
+    }
+
+    .orderItem {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .itemTotal {
+        align-self: flex-end;
+    }
+
+    .supportCard {
+        padding: 1.5rem;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+
+    .viewDetailsButton,
+    .continueButton,
+    .refreshButton {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.75rem;
+    }
+
+    .trackingCard {
+        padding: 1rem;
+    }
+
+    .orderSummary {
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .trackingTimeline {
+        margin-bottom: 2rem;
+    }
+
+    .timelineStep {
+        padding: 1rem 0;
+    }
+
+    .stepContent h3 {
+        font-size: 1.1rem;
+    }
+
+    .stepContent p {
+        font-size: 0.9rem;
+    }
+}

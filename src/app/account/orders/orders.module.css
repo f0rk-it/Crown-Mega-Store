@@ -1,0 +1,464 @@
+/* My Orders Page Container */
+.container {
+    max-width: var(--max-width-container);
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    min-height: calc(100vh - 140px);
+    margin-top: 73px;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.header h1 {
+    font-family: var(--font-primary);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0 0 0.5rem 0;
+}
+
+.header p {
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* Filters */
+.filters {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.filterGroup {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.filterGroup label {
+    font-weight: 600;
+    color: var(--color-text);
+    white-space: nowrap;
+}
+
+.statusFilter {
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-white);
+    color: var(--color-text);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 200px;
+}
+
+.statusFilter:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.1);
+}
+
+/* Loading & Error States */
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--color-border);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+.loading p {
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.errorIcon {
+    color: #dc3545;
+    margin-bottom: 1.5rem;
+}
+
+.error h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 0.5rem 0;
+}
+
+.error p {
+    color: var(--color-text-muted);
+    margin: 0 0 1.5rem 0;
+    max-width: 400px;
+}
+
+.retryButton {
+    background-color: var(--color-primary);
+    color: var(--color-text);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.retryButton:hover {
+    background-color: var(--color-primary-dark);
+    transform: translateY(-1px);
+}
+
+/* Empty State */
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.emptyIcon {
+    color: var(--color-text-muted);
+    opacity: 0.5;
+    margin-bottom: 1.5rem;
+}
+
+.emptyState h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 1rem 0;
+}
+
+.emptyState p {
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    margin: 0 0 2rem 0;
+    max-width: 500px;
+}
+
+.shopButton {
+    background-color: var(--color-primary);
+    color: var(--color-text);
+    text-decoration: none;
+    padding: 1rem 2rem;
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.shopButton:hover {
+    background-color: var(--color-primary-dark);
+    transform: translateY(-2px);
+}
+
+/* Orders List */
+.ordersList {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Order Card */
+.orderCard {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    transition: all 0.2s ease;
+}
+
+.orderCard:hover {
+    box-shadow: 0 4px 12px rgba(10, 9, 5, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Order Header */
+.orderHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.orderInfo h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 0.5rem 0;
+}
+
+.orderDate {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.statusBadge {
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-full);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Order Details */
+.orderDetails {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.customerInfo p {
+    margin: 0 0 0.5rem 0;
+    color: var(--color-text);
+    font-size: 0.95rem;
+}
+
+.customerInfo p:last-child {
+    margin-bottom: 0;
+}
+
+.customerInfo strong {
+    color: var(--color-text-muted);
+    font-weight: 600;
+}
+
+/* Order Items */
+.orderItems h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 1rem 0;
+}
+
+.itemsList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.orderItem {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.orderItem:last-child {
+    border-bottom: none;
+}
+
+.itemName {
+    color: var(--color-text);
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.itemQuantity {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+.itemPrice {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.moreItems {
+    color: var(--color-text-muted);
+    font-style: italic;
+    margin: 0.5rem 0 0 0;
+    font-size: 0.9rem;
+}
+
+/* Order Footer */
+.orderFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.orderTotal {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.totalLabel {
+    color: var(--color-text-muted);
+    font-weight: 600;
+}
+
+.totalAmount {
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.orderActions {
+    display: flex;
+    gap: 1rem;
+}
+
+.viewButton,
+.trackButton {
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.viewButton {
+    background-color: var(--color-primary);
+    color: var(--color-text);
+    border: none;
+}
+
+.viewButton:hover {
+    background-color: var(--color-primary-dark);
+    transform: translateY(-1px);
+}
+
+.trackButton {
+    background-color: transparent;
+    color: var(--color-text);
+    border: 2px solid var(--color-border);
+}
+
+.trackButton:hover {
+    border-color: var(--color-primary);
+    background-color: rgba(255, 193, 7, 0.1);
+}
+
+/* Animations */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .orderDetails {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .filters {
+        padding: 1rem;
+    }
+
+    .filterGroup {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .statusFilter {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .orderCard {
+        padding: 1rem;
+    }
+
+    .orderHeader {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .orderFooter {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .orderActions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .viewButton,
+    .trackButton {
+        flex: 1;
+    }
+}
+
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.75rem;
+    }
+
+    .orderItem {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        text-align: left;
+    }
+
+    .itemPrice {
+        justify-self: end;
+    }
+
+    .orderActions {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}

@@ -42,9 +42,41 @@ async function apiRequest(endpoint, options = {}) {
         }
 
         if (!response.ok) {
-            // Create a more informative error
-            const error = new Error(data.detail || data.message || 'API request failed')
+            // Log the full error details for debugging
+            console.error('API Error Response:', {
+                status: response.status,
+                statusText: response.statusText,
+                data: data,
+                url: response.url
+            })
+            
+            // Create a more informative error message
+            let errorMessage = 'API request failed'
+            
+            if (data) {
+                if (typeof data === 'string') {
+                    errorMessage = data
+                } else if (data.detail && Array.isArray(data.detail)) {
+                    // Handle validation errors (Pydantic/FastAPI format)
+                    const validationErrors = data.detail.map(err => {
+                        const field = err.loc ? err.loc.join('.') : 'unknown field'
+                        return `${field}: ${err.msg}`
+                    }).join(', ')
+                    errorMessage = `Validation error: ${validationErrors}`
+                } else if (data.detail) {
+                    errorMessage = data.detail
+                } else if (data.message) {
+                    errorMessage = data.message
+                } else if (data.error) {
+                    errorMessage = data.error
+                } else {
+                    errorMessage = JSON.stringify(data)
+                }
+            }
+            
+            const error = new Error(errorMessage)
             error.status = response.status
+            error.response = data
             throw error
         }
 

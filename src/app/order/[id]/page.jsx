@@ -232,6 +232,9 @@ export default function OrderPage() {
                         <Link href="/shop" className={styles.continueButton}>
                             Continue Shopping
                         </Link>
+                        <Link href={`/track/${order.order_id}`} className={styles.trackButton}>
+                            Track Order
+                        </Link>
                         <button 
                             className={styles.printButton}
                             onClick={() => window.print()}
