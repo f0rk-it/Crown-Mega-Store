@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react'
 import { productsAPI } from '@/lib/api'
 import ProtectedAdminRoute from '@/components/ProtectedAdminRoute'
+import ImageUpload from '@/components/ImageUpload'
+import OptimizedImage from '@/components/OptimizedImage'
 import toast from 'react-hot-toast'
 import Link from 'next/link'
 import styles from './products.module.css'
@@ -293,12 +295,11 @@ export default function AdminProducts() {
                             products.map((product) => (
                                 <div key={product.id} className={styles.productCard}>
                                     <div className={styles.productImage}>
-                                        <img
-                                            src={product.image_url || '/placeholder-product.svg'}
+                                        <OptimizedImage
+                                            src={product.image_url}
                                             alt={product.name}
-                                            onError={(e) => {
-                                                e.target.src = '/placeholder-product.svg'
-                                            }}
+                                            size="admin"
+                                            fallback="/placeholder-product.svg"
                                         />
                                         <div className={styles.productBadges}>
                                             {product.is_featured && (
@@ -439,17 +440,19 @@ export default function AdminProducts() {
                                 </div>
 
                                 <div className={styles.formGroup}>
-                                    <label htmlFor="image_url">Image URL</label>
-                                    <input
-                                        type="url"
-                                        id="image_url"
-                                        value={productForm.image_url}
-                                        onChange={(e) => setProductForm(prev => ({
-                                            ...prev, 
-                                            image_url: e.target.value
-                                        }))}
-                                        className={styles.input}
-                                        placeholder="https://example.com/image.jpg"
+                                    <label>Product Image</label>
+                                    <ImageUpload
+                                        currentImage={productForm.image_url}
+                                        onUploadSuccess={(result) => {
+                                            setProductForm(prev => ({
+                                                ...prev,
+                                                image_url: result.url
+                                            }))
+                                        }}
+                                        onUploadError={(error) => {
+                                            toast.error(`Upload failed: ${error}`)
+                                        }}
+                                        disabled={submitting}
                                     />
                                 </div>
 

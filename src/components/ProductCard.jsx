@@ -5,11 +5,11 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { userCartStore } from "@/store/cartStore"
 import { useAuthStore } from "@/store/authStore"
+import OptimizedImage from './OptimizedImage'
 import toast from "react-hot-toast"
 import styles from '../styles/productCard.module.css'
 
 export default function ProductCard({ product, index }) {
-    const [imageLoaded, setImageLoaded] = useState(false)
     const [addingToCart, setAddingToCart] = useState(false)
     const { addItem } = userCartStore()
     const { isAuthenticated } = useAuthStore()
@@ -45,13 +45,12 @@ export default function ProductCard({ product, index }) {
             style={{ animationDelay: `${index * 0.1}s` }}
         >
             <div className={styles.imageWrapper}>
-                {!imageLoaded && <div className={styles.imageSkeleton} />}
-                <img 
-                    src={product.image_url || 'https://via.placeholder.com/400'}
+                <OptimizedImage
+                    src={product.image_url}
                     alt={product.name}
+                    size="card"
                     className={styles.image}
-                    onLoad={() => setImageLoaded(true)}
-                    style={{ opacity: imageLoaded ? 1: 0 }}
+                    fallback="https://via.placeholder.com/400"
                 />
 
                 {/* Badges */}
