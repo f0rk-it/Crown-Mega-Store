@@ -231,6 +231,16 @@ export default function Navbar() {
                                         My Orders
                                     </Link>
 
+                                    {/* Admin Link - Only show for admin users */}
+                                    {user?.role === 'admin' && (
+                                        <Link href='/admin/dashboard' className={styles.dropdownItem} onClick={() => setShowUserMenu(false)}>
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
+                                            </svg>
+                                            Admin Dashboard
+                                        </Link>
+                                    )}
+
                                     <div className={styles.dropdownDivider}></div>
 
                                     <button className={styles.dropdownItem} onClick={handleLogout}>
@@ -314,6 +324,17 @@ export default function Navbar() {
                         >
                             My Orders
                         </Link>
+
+                        {/* Admin Link for Mobile - Only show for admin users */}
+                        {user?.role === 'admin' && (
+                            <Link
+                                href='/admin/dashboard'
+                                className={styles.mobileLink}
+                                onClick={closeMobileMenu}
+                            >
+                                Admin Dashboard
+                            </Link>
+                        )}
 
                         <button
                             className={styles.mobileSignOut}

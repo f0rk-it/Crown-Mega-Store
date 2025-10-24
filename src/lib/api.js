@@ -117,6 +117,27 @@ export const productsAPI = {
             skipAuth: true
         })
     },
+
+    // Admin endpoints
+    create: (productData) => {
+        return apiRequest('/api/products/', {
+            method: 'POST',
+            body: JSON.stringify(productData)
+        })
+    },
+
+    update: (productId, productData) => {
+        return apiRequest(`/api/products/${productId}`, {
+            method: 'PUT',
+            body: JSON.stringify(productData)
+        })
+    },
+
+    delete: (productId) => {
+        return apiRequest(`/api/products/${productId}`, {
+            method: 'DELETE'
+        })
+    },
 }
 
 // Cart API
@@ -182,6 +203,33 @@ export const ordersAPI = {
     getMyOrders: (status = null) => {
         const query = status ? `?status=${status}` : ''
         return apiRequest(`/api/orders/user/my-orders${query}`)
+    },
+
+    // Admin endpoints
+    getAllOrders: (status = null, page = 1, limit = 50) => {
+        const params = new URLSearchParams()
+        if (status) params.append('status', status)
+        params.append('page', page.toString())
+        params.append('limit', limit.toString())
+        return apiRequest(`/api/orders/?${params.toString()}`)
+    },
+
+    updateOrderStatus: (orderId, statusData) => {
+        return apiRequest(`/api/orders/${orderId}/status`, {
+            method: 'POST',
+            body: JSON.stringify(statusData)
+        })
+    },
+
+    recordPayment: (orderId, paymentData) => {
+        return apiRequest(`/api/orders/${orderId}/payment`, {
+            method: 'POST',
+            body: JSON.stringify(paymentData)
+        })
+    },
+
+    getStats: () => {
+        return apiRequest('/api/orders/stats/dashboard')
     },
 }
 
