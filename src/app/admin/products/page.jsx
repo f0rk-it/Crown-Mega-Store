@@ -137,21 +137,51 @@ export default function AdminProducts() {
         }
     }
 
+    const validateProductData = (data) => {
+        const errors = []
+        
+        if (!data.name?.trim()) {
+            errors.push('Product name is required')
+        }
+        
+        if (!data.price || isNaN(parseFloat(data.price)) || parseFloat(data.price) <= 0) {
+            errors.push('Valid price is required')
+        }
+        
+        if (!data.category?.trim()) {
+            errors.push('Category is required')
+        }
+        
+        if (data.stock_quantity && (isNaN(parseInt(data.stock_quantity)) || parseInt(data.stock_quantity) < 0)) {
+            errors.push('Stock quantity must be a non-negative number')
+        }
+        
+        return errors
+    }
+
     const handleFormSubmit = async (e) => {
         e.preventDefault()
         
-        if (!productForm.name.trim() || !productForm.price || !productForm.category) {
-            toast.error('Please fill in all required fields')
+        // Validate the form data
+        const validationErrors = validateProductData(productForm)
+        if (validationErrors.length > 0) {
+            toast.error(validationErrors[0])
             return
         }
 
         try {
             setSubmitting(true)
             
+            // Prepare product data with proper types
             const productData = {
-                ...productForm,
-                price: parseFloat(productForm.price),
+                name: productForm.name.trim(),
+                description: productForm.description?.trim() || null,
+                price: parseFloat(productForm.price).toFixed(2), // Send as string to avoid Decimal issues
+                category: productForm.category,
+                image_url: productForm.image_url?.trim() || null,
                 stock_quantity: parseInt(productForm.stock_quantity) || 0,
+                is_featured: Boolean(productForm.is_featured),
+                is_new: Boolean(productForm.is_new)
             }
 
             if (editingProduct) {
@@ -167,7 +197,7 @@ export default function AdminProducts() {
             fetchProducts()
         } catch (error) {
             console.error('Failed to save product:', error)
-            toast.error('Failed to save product')
+            toast.error(`Failed to save product: ${error.message}`)
         } finally {
             setSubmitting(false)
         }

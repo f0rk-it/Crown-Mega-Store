@@ -127,6 +127,7 @@ export const productsAPI = {
     },
 
     update: (productId, productData) => {
+        console.log('🔍 Updating product:', { productId, productData })
         return apiRequest(`/api/products/${productId}`, {
             method: 'PUT',
             body: JSON.stringify(productData)
