@@ -102,7 +102,7 @@ export default function AdminOrders() {
                 notes: statusNotes.trim() || null
             }
 
-            await ordersAPI.updateOrderStatus(selectedOrder.id, statusData)
+            await ordersAPI.updateOrderStatus(selectedOrder.order_id, statusData)
             
             toast.success(`Order status updated to ${getStatusText(newStatus)}`)
             setShowStatusModal(false)
@@ -112,7 +112,7 @@ export default function AdminOrders() {
             fetchOrders()
         } catch (error) {
             console.error('Failed to update order status:', error)
-            toast.error('Failed to update order status')
+            toast.error(`Failed to update order status: ${error.message || 'Unknown error'}`)
         } finally {
             setUpdatingStatus(false)
         }
@@ -126,12 +126,12 @@ export default function AdminOrders() {
                 notes: 'Order confirmed by admin'
             }
 
-            await ordersAPI.updateOrderStatus(order.id, statusData)
+            await ordersAPI.updateOrderStatus(order.order_id, statusData)
             toast.success('Order confirmed successfully')
             fetchOrders()
         } catch (error) {
             console.error('Failed to confirm order:', error)
-            toast.error('Failed to confirm order')
+            toast.error(`Failed to confirm order: ${error.message || 'Unknown error'}`)
         }
     }
 
