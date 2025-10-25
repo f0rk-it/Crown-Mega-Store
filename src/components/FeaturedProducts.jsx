@@ -15,7 +15,7 @@ export default function FeaturedProducts() {
 
     const fetchFeaturedProducts = async () => {
         try {
-            const response = await fetch('http://localhost:8000/api/products?limit=8&sort_by=balanced')
+            const response = await fetch('https://crown-mega-store-backend.onrender.com/api/products/?sort_by=balanced&limit=8')
             const data = await response.json()
             setProducts(data.products || [])
         } catch (error) {
