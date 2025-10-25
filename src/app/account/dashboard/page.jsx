@@ -100,8 +100,8 @@ export default function AccountDashboard() {
                         <h2>Support</h2>
                         <p>Get help with your orders</p>
                         <div className={styles.supportInfo}>
-                            <p>📞 +234 123 456 7890</p>
-                            <p>📧 orders@crownmegastore.com</p>
+                            <p>📞 +234 806 840 2757</p>
+                            <p>📧 crownmegastore@gmail.com</p>
                         </div>
                     </div>
                 </div>
