@@ -187,7 +187,7 @@ export default function ProductDetailPage() {
                         </div>
 
                         <div className={styles.price}>
-                            <span className={styles.priceValue}>₦{parseFloat(product.price).toFixed(2)}</span>
+                            <span className={styles.priceValue}>₦{parseFloat(product.price).toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                             {product.stock_quantity > 0 && product.stock_quantity <= 10 && (
                                 <span className={styles.lowStock}>Only {product.stock_quantity} left in stock!</span>
                             )}
