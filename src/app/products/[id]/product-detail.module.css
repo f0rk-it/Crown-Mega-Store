@@ -535,6 +535,7 @@
         padding-top: 85px;
         padding-left: 1rem;
         padding-right: 1rem;
+        margin-top: 30px;
     }
 
     .container {
@@ -587,6 +588,7 @@
     .page {
         padding-top: 80px;
         padding-bottom: 2rem;
+        margin-top: 30px;
     }
 
     .similarGrid {
