@@ -1,0 +1,348 @@
+.container {
+    min-height: 100vh;
+    padding: var(--spacing-2xl) var(--spacing-lg);
+    background: linear-gradient(135deg, var(--color-background) 0%, var(--color-gray-50) 100%);
+    margin-top: 73px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: var(--spacing-3xl);
+    animation: slideDown 0.6s ease-out;
+}
+
+.header h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-md);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.header p {
+    font-size: 1.25rem;
+    color: var(--color-gray-600);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contactContent {
+    max-width: var(--max-width-6xl);
+    margin: 0 auto;
+}
+
+.contactCards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-3xl);
+}
+
+.contactCard {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-2xl);
+    box-shadow: var(--shadow-lg);
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+    animation: slideUp 0.6s ease-out;
+}
+
+.contactCard:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.contactCard:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.contactCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+}
+
+.contactCard:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+}
+
+.cardIcon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+    border-radius: var(--radius-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--spacing-lg);
+    color: var(--color-text);
+    box-shadow: var(--shadow-md);
+}
+
+.cardContent h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-sm);
+}
+
+.contactValue {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-md) !important;
+    font-family: var(--font-primary);
+}
+
+.cardDescription {
+    color: var(--color-gray-600);
+    margin-bottom: var(--spacing-lg) !important;
+    line-height: 1.6;
+}
+
+.contactButton {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: 0.875rem 1.5rem;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    font-size: 1rem;
+    width: 100%;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.phoneButton {
+    background: linear-gradient(135deg, var(--color-info), #1e40af);
+    color: var(--color-white);
+}
+
+.phoneButton:hover {
+    background: linear-gradient(135deg, #1e40af, var(--color-info));
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.whatsappButton {
+    background: linear-gradient(135deg, #25d366, #128c7e);
+    color: var(--color-white);
+}
+
+.whatsappButton:hover {
+    background: linear-gradient(135deg, #128c7e, #25d366);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.emailButton {
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-dark));
+    color: var(--color-white);
+}
+
+.emailButton:hover {
+    background: linear-gradient(135deg, var(--color-accent-dark), var(--color-accent));
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.additionalInfo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: var(--spacing-2xl);
+    margin-bottom: var(--spacing-3xl);
+}
+
+.infoSection {
+    background: var(--color-white);
+    padding: var(--spacing-2xl);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    animation: slideUp 0.6s ease-out;
+    animation-delay: 0.3s;
+    animation-fill-mode: both;
+}
+
+.infoSection h2 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-lg);
+    position: relative;
+    padding-bottom: var(--spacing-sm);
+}
+
+.infoSection h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+    border-radius: var(--radius-sm);
+}
+
+.hoursGrid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.hoursItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md);
+    background: var(--color-gray-50);
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--color-primary);
+}
+
+.day {
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.time {
+    color: var(--color-gray-600);
+    font-weight: 500;
+}
+
+.reasonsList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.reason {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: flex-start;
+}
+
+.reasonIcon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-dark));
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text);
+}
+
+.reasonContent h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-xs);
+}
+
+.reasonContent p {
+    color: var(--color-gray-600);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.backToShop {
+    text-align: center;
+    animation: slideUp 0.6s ease-out;
+    animation-delay: 0.4s;
+    animation-fill-mode: both;
+    transition: all 0.3s ease-out;
+}
+
+.backToShop:hover {
+    color: var(--color-text);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        padding: var(--spacing-xl) var(--spacing-md);
+    }
+
+    .header h1 {
+        font-size: 2.5rem;
+    }
+
+    .contactCards {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+    }
+
+    .additionalInfo {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+    }
+
+    .infoSection {
+        padding: var(--spacing-lg);
+    }
+
+    .cardIcon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .contactCard {
+        padding: var(--spacing-xl);
+    }
+
+    .hoursItem {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-xs);
+    }
+
+    .reason {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .reasonIcon {
+        align-self: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .header p {
+        font-size: 1rem;
+    }
+
+    .contactCard {
+        padding: var(--spacing-lg);
+    }
+
+    .infoSection {
+        padding: var(--spacing-md);
+    }
+
+    .cardIcon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .reasonIcon {
+        width: 40px;
+        height: 40px;
+    }
+}
