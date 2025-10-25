@@ -20,6 +20,10 @@ export default function AdminDashboard() {
             setLoading(true)
             setError(null)
             const response = await ordersAPI.getStats()
+            
+            // Debug: Log the response to see what we're getting
+            console.log('Admin Dashboard Stats Response:', response)
+            
             setStats(response)
         } catch (error) {
             console.error('Failed to fetch admin stats:', error)
@@ -69,8 +73,22 @@ export default function AdminDashboard() {
         <ProtectedAdminRoute>
             <div className={styles.container}>
                 <div className={styles.header}>
-                    <h1>Admin Dashboard</h1>
-                    <p>Welcome to Crown Mega Store administration panel</p>
+                    <div>
+                        <h1>Admin Dashboard</h1>
+                        <p>Welcome to Crown Mega Store administration panel</p>
+                    </div>
+                    <button 
+                        onClick={fetchStats} 
+                        className={styles.refreshButton}
+                        disabled={loading}
+                    >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <polyline points="23 4 23 10 17 10"/>
+                            <polyline points="1 20 1 14 7 14"/>
+                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
+                        </svg>
+                        {loading ? 'Refreshing...' : 'Refresh Data'}
+                    </button>
                 </div>
 
                 {/* Stats Cards */}
@@ -98,7 +116,12 @@ export default function AdminDashboard() {
                         </div>
                         <div className={styles.statContent}>
                             <h3>Total Revenue</h3>
-                            <p className={styles.statNumber}>{formatCurrency(stats?.total_revenue || 0)}</p>
+                            <p className={styles.statNumber}>
+                                {formatCurrency(stats?.total_revenue || 0)}
+                                {stats?.total_revenue === 0 && stats?.total_orders > 0 && (
+                                    <span className={styles.warningText}> (Check backend calculation)</span>
+                                )}
+                            </p>
                         </div>
                     </div>
 
@@ -123,7 +146,12 @@ export default function AdminDashboard() {
                         </div>
                         <div className={styles.statContent}>
                             <h3>Average Order</h3>
-                            <p className={styles.statNumber}>{formatCurrency(stats?.average_order_value || 0)}</p>
+                            <p className={styles.statNumber}>
+                                {formatCurrency(stats?.average_order_value || 0)}
+                                {stats?.average_order_value === 0 && stats?.total_orders > 0 && (
+                                    <span className={styles.warningText}> (Check backend calculation)</span>
+                                )}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -182,7 +210,13 @@ export default function AdminDashboard() {
                     <div className={styles.overviewGrid}>
                         <div className={styles.overviewCard}>
                             <h3>Payment Confirmed</h3>
-                            <p className={styles.overviewNumber}>{stats?.payment_confirmed_count || 0}</p>
+                            <p className={styles.overviewNumber}>
+                                {stats?.payment_confirmed_count || 
+                                 (stats?.completed_orders || 0) + 
+                                 (stats?.status_breakdown?.payment_received || 0) + 
+                                 (stats?.status_breakdown?.processing || 0) + 
+                                 (stats?.status_breakdown?.shipped || 0) || 0}
+                            </p>
                             <span className={styles.overviewLabel}>Orders with confirmed payments</span>
                         </div>
                         <div className={styles.overviewCard}>
