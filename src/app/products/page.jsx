@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 import ProductCard from "@/components/ProductCard"
 import { productsAPI } from "@/lib/api"
 import styles from './products.module.css'
 
-export default function ProductsPage() {
+function ProductsContent() {
     const [products, setProducts] = useState([])
     const [categories, setCategories] = useState([])
     const [loading, setLoading] = useState(true)
@@ -201,5 +201,43 @@ export default function ProductsPage() {
                 </div>
             </div>
         </div>
+    )
+}
+
+// Loading component for Suspense fallback
+function ProductsLoading() {
+    return (
+        <div className={styles.page}>
+            <div className={styles.container}>
+                <div className={styles.header}>
+                    <div>
+                        <h1 className={styles.title}>All Products</h1>
+                        <p className={styles.subtitle}>Loading products...</p>
+                    </div>
+                </div>
+                <div className={styles.content}>
+                    <aside className={styles.sidebar}>
+                        <div className={styles.filterSection}>
+                            <h3 className={styles.filterTitle}>Filters</h3>
+                        </div>
+                    </aside>
+                    <main className={styles.main}>
+                        <div className={styles.loadingGrid}>
+                            {[...Array(8)].map((_, i) => (
+                                <div key={i} className={styles.skeleton}></div>
+                            ))}
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default function ProductsPage() {
+    return (
+        <Suspense fallback={<ProductsLoading />}>
+            <ProductsContent />
+        </Suspense>
     )
 }

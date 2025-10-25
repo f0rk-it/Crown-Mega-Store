@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { productsAPI } from '@/lib/api'
 import ProductCard from '@/components/ProductCard'
 import styles from './search.module.css'
 
-export default function SearchPage() {
+function SearchContent() {
     const [searchResults, setSearchResults] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
@@ -130,5 +130,29 @@ export default function SearchPage() {
                 </div>
             )}
         </div>
+    )
+}
+
+// Loading component for Suspense fallback
+function SearchLoading() {
+    return (
+        <div className={styles.container}>
+            <div className={styles.header}>
+                <h1 className={styles.title}>Search Results</h1>
+                <p className={styles.resultCount}>Loading...</p>
+            </div>
+            <div className={styles.loading}>
+                <div className={styles.spinner}></div>
+                <p>Searching products...</p>
+            </div>
+        </div>
+    )
+}
+
+export default function SearchPage() {
+    return (
+        <Suspense fallback={<SearchLoading />}>
+            <SearchContent />
+        </Suspense>
     )
 }
