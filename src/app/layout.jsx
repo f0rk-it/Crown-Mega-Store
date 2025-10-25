@@ -10,7 +10,65 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata = {
   title: "Crown Mega Store - Your One-Stop Shop",
-  description: "Discover amazing products at unbeatable prices",
+  description: "Discover amazing products at unbeatable prices. Shop electronics, fashion, home goods and more with fast shipping and great customer service.",
+  keywords: "online store, electronics, fashion, home goods, shopping, ecommerce",
+  authors: [{ name: "Crown Mega Store" }],
+  creator: "Crown Mega Store",
+  publisher: "Crown Mega Store",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://crownmegastore.vercel.app'),
+  
+  // Open Graph
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "/",
+    siteName: "Crown Mega Store",
+    title: "Crown Mega Store - Your One-Stop Shop",
+    description: "Discover amazing products at unbeatable prices. Shop electronics, fashion, home goods and more with fast shipping and great customer service.",
+    images: [
+      {
+        url: "/preview.png",
+        width: 1200,
+        height: 630,
+        alt: "Crown Mega Store - Your One-Stop Shop",
+        type: "image/png",
+      },
+    ],
+  },
+
+  // Twitter
+  twitter: {
+    card: "summary_large_image",
+    site: "@f0rk-it",
+    creator: "@f0rk-it",
+    title: "Crown Mega Store - Your One-Stop Shop",
+    description: "Discover amazing products at unbeatable prices. Shop electronics, fashion, home goods and more with fast shipping and great customer service.",
+    images: ["/preview.png"],
+  },
+
+  // Additional metadata
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  
+  // Verification (add your actual verification codes)
+  verification: {
+    // google: 'your-google-site-verification',
+    // yandex: 'your-yandex-verification',
+    // yahoo: 'your-yahoo-site-verification',
+  },
+
+  // App-specific
+  category: 'technology',
+  classification: 'business',
 };
 
 export default function RootLayout({ children }) {
