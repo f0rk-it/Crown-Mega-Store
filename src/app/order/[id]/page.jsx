@@ -169,11 +169,11 @@ export default function OrderPage() {
                         </div>
                     </div>
 
-                    {order.order_items && order.order_items.length > 0 && (
+                    {order.items && order.items.length > 0 && (
                         <div className={styles.infoSection}>
                             <h2>Order Items</h2>
                             <div className={styles.orderItems}>
-                                {order.order_items.map((item, index) => (
+                                {order.items.map((item, index) => (
                                     <div key={index} className={styles.orderItem}>
                                         <div className={styles.itemDetails}>
                                             <h4>{item.product_name}</h4>
