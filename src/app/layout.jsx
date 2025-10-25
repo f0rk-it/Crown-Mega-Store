@@ -1,5 +1,6 @@
 import { Inter } from "next/font/google";
 import ConditionalNavbar from "@/components/ConditionalNavbar";
+import Footer from "@/components/Footer";
 import AuthProvider from "@/components/AuthProvider";
 import AuthInitializer from "@/components/AuthInitializer";
 import { Toaster } from "react-hot-toast";
@@ -20,6 +21,7 @@ export default function RootLayout({ children }) {
           <AuthInitializer>
             <ConditionalNavbar />
             <main>{children}</main>
+            <Footer />
             <Toaster
               position="top-right"
               toastOptions={{

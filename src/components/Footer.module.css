@@ -1,0 +1,360 @@
+.footer {
+    background: linear-gradient(135deg, var(--color-text) 0%, #1a1a1a 100%);
+    color: var(--color-white);
+    margin-top: auto;
+    padding: var(--spacing-3xl) 0 var(--spacing-lg) 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light), var(--color-secondary), var(--color-accent));
+    background-size: 400% 400%;
+    animation: gradientShift 8s ease infinite;
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.container {
+    max-width: var(--max-width-container);
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+}
+
+.footerContent {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: var(--spacing-2xl);
+    margin-bottom: var(--spacing-2xl);
+    animation: slideUp 0.8s ease-out;
+}
+
+.brandSection {
+    animation: slideInLeft 0.8s ease-out;
+}
+
+.logo h3 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-md);
+    font-family: var(--font-primary);
+}
+
+.brandDescription {
+    color: var(--color-gray-300);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-xl);
+    font-size: 0.95rem;
+}
+
+.socialLinks {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.socialLink {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-xl);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+    background: var(--color-gray-800);
+    color: var(--color-white);
+}
+
+.socialLink::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    transition: all var(--transition-base);
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.socialLink svg {
+    position: relative;
+    z-index: 2;
+    transition: transform var(--transition-base);
+}
+
+.socialLink:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.socialLink:hover::before {
+    width: 100%;
+    height: 100%;
+}
+
+.socialLink:hover svg {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.github:hover::before {
+    background: linear-gradient(135deg, #333, #6e5494);
+}
+
+.twitter:hover::before {
+    background: linear-gradient(135deg, #1da1f2, #0d8bd9);
+}
+
+.whatsapp:hover::before {
+    background: linear-gradient(135deg, #25d366, #128c7e);
+}
+
+.socialLink:active {
+    transform: translateY(-2px) scale(1.02);
+}
+
+.linksSection {
+    animation: slideUp 0.8s ease-out;
+    animation-delay: 0.1s;
+    animation-fill-mode: both;
+}
+
+.contactSection {
+    animation: slideInRight 0.8s ease-out;
+    animation-delay: 0.2s;
+    animation-fill-mode: both;
+}
+
+.linksSection h4,
+.contactSection h4 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-lg);
+    position: relative;
+    padding-bottom: var(--spacing-sm);
+}
+
+.linksSection h4::after,
+.contactSection h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background: var(--color-primary);
+    border-radius: var(--radius-sm);
+}
+
+.linksList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.footerLink {
+    color: var(--color-gray-300);
+    text-decoration: none;
+    transition: all var(--transition-base);
+    padding: var(--spacing-xs) 0;
+    position: relative;
+    display: inline-block;
+}
+
+.footerLink::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    transition: width var(--transition-base);
+}
+
+.footerLink:hover {
+    color: var(--color-white);
+    transform: translateX(4px);
+}
+
+.footerLink:hover::before {
+    width: 100%;
+}
+
+.contactInfo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.contactItem {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--color-gray-300);
+    font-size: 0.95rem;
+}
+
+.contactItem svg {
+    color: var(--color-primary);
+    flex-shrink: 0;
+}
+
+.bottomBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--spacing-xl);
+    border-top: 1px solid var(--color-gray-700);
+    animation: slideUp 0.8s ease-out;
+    animation-delay: 0.3s;
+    animation-fill-mode: both;
+}
+
+.copyright p {
+    color: var(--color-gray-400);
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+.developer p {
+    color: var(--color-gray-400);
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+.developerLink {
+    background: none;
+    border: none;
+    color: var(--color-primary);
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    transition: all var(--transition-base);
+    font-size: inherit;
+    font-family: inherit;
+}
+
+.developerLink::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    transition: width var(--transition-base);
+}
+
+.developerLink:hover {
+    color: var(--color-white);
+    transform: scale(1.05);
+}
+
+.developerLink:hover::before {
+    width: 100%;
+}
+
+.developerLink:active {
+    animation: pulse 0.3s ease-in-out;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1.05); }
+    50% { transform: scale(1.1); }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 1024px) {
+    .footerContent {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-xl);
+    }
+    
+    .brandSection {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer {
+        padding: var(--spacing-2xl) 0 var(--spacing-lg) 0;
+    }
+
+    .container {
+        padding: 0 var(--spacing-md);
+    }
+
+    .footerContent {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-xl);
+    }
+
+    .socialLinks {
+        justify-content: center;
+        margin-top: var(--spacing-lg);
+    }
+
+    .socialLink {
+        width: 44px;
+        height: 44px;
+    }
+
+    .bottomBar {
+        flex-direction: column;
+        gap: var(--spacing-md);
+        text-align: center;
+    }
+
+    .brandDescription {
+        text-align: center;
+    }
+
+    .linksSection,
+    .contactSection {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer {
+        padding: var(--spacing-xl) 0 var(--spacing-md) 0;
+    }
+
+    .logo h3 {
+        font-size: 1.5rem;
+    }
+
+    .socialLink {
+        width: 40px;
+        height: 40px;
+    }
+
+    .footerContent {
+        gap: var(--spacing-lg);
+    }
+
+    .brandDescription {
+        font-size: 0.875rem;
+    }
+
+    .copyright p,
+    .developer p {
+        font-size: 0.75rem;
+    }
+}
