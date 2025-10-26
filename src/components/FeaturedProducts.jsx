@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import Link from "next/link"
 import ProductCard from './ProductCard'
 import styles from '../styles/featured.module.css'
@@ -8,6 +8,7 @@ import styles from '../styles/featured.module.css'
 export default function FeaturedProducts() {
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(true)
+    const scrollContainerRef = useRef(null)
 
     useEffect(() => {
         fetchFeaturedProducts()
@@ -25,14 +26,42 @@ export default function FeaturedProducts() {
         }
     }
 
+    const scrollLeft = () => {
+        if (scrollContainerRef.current) {
+            const scrollAmount = 200
+            scrollContainerRef.current.scrollBy({
+                left: -scrollAmount,
+                behavior: 'smooth'
+            })
+        }
+    }
+
+    const scrollRight = () => {
+        if (scrollContainerRef.current) {
+            const scrollAmount = 200
+            scrollContainerRef.current.scrollBy({
+                left: scrollAmount,
+                behavior: 'smooth'
+            })
+        }
+    }
+
     if (loading) {
         return (
             <section className={styles.section}>
                 <div className="container">
-                    <div className={styles.loadingGrid}>
-                        {[...Array(8)].map((_, i) => (
-                            <div key={i} className={styles.skeleton}></div>
-                        ))}
+                    <div className={styles.header}>
+                        <div>
+                            <h2 className={styles.title}>Featured Products</h2>
+                            <p className={styles.subtitle}>Discover our handpicked selection of amazing products</p>
+                        </div>
+                    </div>
+                    <div className={styles.gridContainer}>
+                        <div className={styles.loadingGrid}>
+                            {[...Array(8)].map((_, i) => (
+                                <div key={i} className={styles.skeleton}></div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </section>
@@ -56,14 +85,36 @@ export default function FeaturedProducts() {
                     </Link>
                 </div>
 
-                <div className={styles.grid}>
-                    {products.map((product, index) => (
-                        <ProductCard
-                            key={product.id}
-                            product={product}
-                            index={index}
-                        />
-                    ))}
+                <div className={styles.gridContainer}>
+                    <button 
+                        className={`${styles.scrollButton} ${styles.scrollLeft}`}
+                        onClick={scrollLeft}
+                        aria-label="Scroll left"
+                    >
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <polyline points="15 18 9 12 15 6"/>
+                        </svg>
+                    </button>
+                    
+                    <div className={styles.grid} ref={scrollContainerRef}>
+                        {products.map((product, index) => (
+                            <ProductCard
+                                key={product.id}
+                                product={product}
+                                index={index}
+                            />
+                        ))}
+                    </div>
+
+                    <button 
+                        className={`${styles.scrollButton} ${styles.scrollRight}`}
+                        onClick={scrollRight}
+                        aria-label="Scroll right"
+                    >
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <polyline points="9 18 15 12 9 6"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
         </section>

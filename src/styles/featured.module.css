@@ -54,6 +54,10 @@
     transform: translateX(4px);
 }
 
+.gridContainer {
+    position: relative;
+}
+
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -64,6 +68,47 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 2rem;
+}
+
+.scrollButton {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    background-color: var(--color-white);
+    border: 2px solid var(--color-gray-200);
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.scrollButton:hover {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.scrollButton:hover svg {
+    color: var(--color-text);
+}
+
+.scrollButton svg {
+    color: var(--color-gray-600);
+    stroke-width: 2;
+}
+
+.scrollLeft {
+    left: -24px;
+}
+
+.scrollRight {
+    right: -24px;
 }
 
 .skeleton {
@@ -118,9 +163,55 @@
         justify-content: center;
     }
 
+    .gridContainer {
+        position: relative;
+        overflow: hidden;
+    }
+
     .grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        display: flex;
+        overflow-x: auto;
+        scroll-behavior: smooth;
         gap: 1rem;
+        padding: 0 0.5rem;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .grid > * {
+        flex: 0 0 160px;
+        min-width: 160px;
+    }
+
+    .scrollButton {
+        display: flex;
+        width: 40px;
+        height: 40px;
+    }
+
+    .scrollLeft {
+        left: 10px;
+    }
+
+    .scrollRight {
+        right: 10px;
+    }
+
+    .loadingGrid {
+        display: flex;
+        gap: 1rem;
+        overflow: hidden;
+    }
+
+    .skeleton {
+        flex: 0 0 160px;
+        min-width: 160px;
+        height: 280px;
     }
 }
 
@@ -129,7 +220,24 @@
         padding: 3rem 0;
     }
 
-    .grid {
-        grid-template-columns: 1fr;
+    .grid > * {
+        flex: 0 0 140px;
+        min-width: 140px;
+    }
+
+    .skeleton {
+        flex: 0 0 140px;
+        min-width: 140px;
+        height: 260px;
+    }
+
+    .scrollButton {
+        width: 36px;
+        height: 36px;
+    }
+
+    .scrollButton svg {
+        width: 16px;
+        height: 16px;
     }
 }
