@@ -18,6 +18,10 @@
     color: var(--color-text);
 }
 
+.categoriesContainer {
+    position: relative;
+}
+
 .categoriesGrid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -77,6 +81,10 @@
 .featuresSection {
     padding: 5rem 0;
     background-color: var(--color-background);
+}
+
+.featuresContainer {
+    position: relative;
 }
 
 .featuresGrid {
@@ -144,6 +152,48 @@
     line-height: 1.6;
 }
 
+/* Scroll Buttons */
+.scrollButton {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    background-color: var(--color-white);
+    border: 2px solid var(--color-gray-200);
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.scrollButton:hover {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.scrollButton:hover svg {
+    color: var(--color-text);
+}
+
+.scrollButton svg {
+    color: var(--color-gray-600);
+    stroke-width: 2;
+}
+
+.scrollLeft {
+    left: -24px;
+}
+
+.scrollRight {
+    right: -24px;
+}
+
 /* Responsive adjustments */
 @media (max-width: 1024px) {
     .categoriesSection,
@@ -177,48 +227,111 @@
         margin-bottom: 2rem;
     }
 
+    /* Categories Mobile Scroll */
+    .categoriesContainer,
+    .featuresContainer {
+        position: relative;
+        overflow: hidden;
+    }
+
     .categoriesGrid {
-        grid-template-columns: repeat(2, 1fr);
+        display: flex;
+        overflow-x: auto;
+        scroll-behavior: smooth;
         gap: 1rem;
+        padding: 0 0.5rem;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .categoriesGrid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .categoriesGrid > * {
+        flex: 0 0 180px;
+        min-width: 180px;
     }
 
     .categoryCard {
-        padding: 2rem 1.5rem;
+        padding: 1.5rem 1rem;
     }
 
     .categoryIcon {
-        font-size: 3rem;
+        font-size: 2.5rem;
+        margin-bottom: 0.75rem;
     }
 
     .categoryName {
-        font-size: 1.25rem;
+        font-size: 1.1rem;
+        margin-bottom: 0.25rem;
     }
 
+    .categoryCount {
+        font-size: 0.85rem;
+    }
+
+    /* Features Mobile Scroll */
     .featuresGrid {
-        grid-template-columns: repeat(2, 1fr);
+        display: flex;
+        overflow-x: auto;
+        scroll-behavior: smooth;
         gap: 1rem;
+        padding: 0 0.5rem;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .featuresGrid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .featuresGrid > * {
+        flex: 0 0 200px;
+        min-width: 200px;
     }
 
     .featureCard {
-        padding: 2rem 1.5rem;
+        padding: 1.5rem 1rem;
+        text-align: center;
     }
 
     .featureIcon {
-        width: 60px;
-        height: 60px;
+        width: 50px;
+        height: 50px;
+        margin-bottom: 1rem;
     }
 
     .featureIcon svg {
-        width: 30px;
-        height: 30px;
+        width: 25px;
+        height: 25px;
     }
 
     .featureTitle {
-        font-size: 1.1rem;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
     }
 
     .featureDescription {
-        font-size: 0.875rem;
+        font-size: 0.8rem;
+        line-height: 1.4;
+    }
+
+    /* Show scroll buttons on mobile */
+    .scrollButton {
+        display: flex;
+        width: 40px;
+        height: 40px;
+    }
+
+    .scrollLeft {
+        left: 10px;
+    }
+
+    .scrollRight {
+        right: 10px;
     }
 }
 
@@ -227,12 +340,70 @@
         padding-top: 55px;
     }
 
-    .categoriesGrid,
-    .featuresGrid {
-        grid-template-columns: 1fr;
-    }
-
     .sectionTitle {
         font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Smaller cards on mobile */
+    .categoriesGrid > * {
+        flex: 0 0 150px;
+        min-width: 150px;
+    }
+
+    .categoryCard {
+        padding: 1.25rem 0.75rem;
+    }
+
+    .categoryIcon {
+        font-size: 2rem;
+    }
+
+    .categoryName {
+        font-size: 1rem;
+    }
+
+    .categoryCount {
+        font-size: 0.8rem;
+    }
+
+    .featuresGrid > * {
+        flex: 0 0 160px;
+        min-width: 160px;
+    }
+
+    .featureCard {
+        padding: 1.25rem 0.75rem;
+    }
+
+    .featureIcon {
+        width: 45px;
+        height: 45px;
+        margin-bottom: 0.75rem;
+    }
+
+    .featureIcon svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .featureTitle {
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .featureDescription {
+        font-size: 0.75rem;
+    }
+
+    /* Smaller scroll buttons on mobile */
+    .scrollButton {
+        width: 36px;
+        height: 36px;
+    }
+
+    .scrollButton svg {
+        width: 16px;
+        height: 16px;
     }
 }
