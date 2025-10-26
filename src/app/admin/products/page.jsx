@@ -386,8 +386,7 @@ export default function AdminProducts() {
                                     </div>
                                     <div className={styles.formGroup}>
                                         <label htmlFor="category">Category *</label>
-                                        <input
-                                            type="text"
+                                        <select
                                             id="category"
                                             value={productForm.category}
                                             onChange={(e) => setProductForm(prev => ({
@@ -396,13 +395,14 @@ export default function AdminProducts() {
                                             }))}
                                             required
                                             className={styles.input}
-                                            list="categories-list"
-                                        />
-                                        <datalist id="categories-list">
-                                            {categories.map(category => (
-                                                <option key={category} value={category} />
-                                            ))}
-                                        </datalist>
+                                        >
+                                            <option value="">Select a category</option>
+                                            <option value="Appliances">Appliances</option>
+                                            <option value="Fashion">Fashion</option>
+                                            <option value="Home & Office">Home & Office</option>
+                                            <option value="Health & Beauty">Health & Beauty</option>
+                                            <option value="Groceries">Groceries</option>
+                                        </select>
                                     </div>
                                 </div>
 
