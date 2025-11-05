@@ -353,6 +353,54 @@
     transform: none;
 }
 
+.shareButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    background-color: var(--color-gray-100);
+    color: var(--color-text);
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.shareButton:hover {
+    background-color: var(--color-gray-200);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    color: var(--color-primary);
+}
+
+.shareButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background-color: var(--color-gray-100);
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--color-text);
+}
+
+.shareButton:hover {
+    background-color: var(--color-gray-200);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.shareButton svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+}
+
 .outOfStockButton {
     flex: 1;
     padding: 1rem 2rem;

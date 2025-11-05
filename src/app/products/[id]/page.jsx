@@ -8,6 +8,7 @@ import { useAuthStore } from "@/store/authStore"
 import { userCartStore } from "@/store/cartStore"
 import ProductCard from "@/components/ProductCard"
 import toast from "react-hot-toast"
+import { FiShare2 } from 'react-icons/fi'
 import styles from './product-detail.module.css'
 
 export default function ProductDetailPage() {
@@ -22,6 +23,15 @@ export default function ProductDetailPage() {
     const [loading, setLoading] = useState(true)
     const [addingToCart, setAddingToCart] = useState(false)
     const [selectedImage, setSelectedImage] = useState(0)
+    const [shareUrl, setShareUrl] = useState('')
+
+    // Set up share URL when product is loaded
+    useEffect(() => {
+        if (product) {
+            const url = new URL(`/products/${product.id}`, process.env.NEXT_PUBLIC_SITE_URL || 'https://crown-mega-store.vercel.app/')
+            setShareUrl(url.toString())
+        }
+    }, [product])
 
     useEffect(() => {
         if (params.id) {
@@ -94,6 +104,29 @@ export default function ProductDetailPage() {
         await handleAddToCart()
         if (isAuthenticated) {
             router.push('/cart')
+        }
+    }
+
+    const handleShare = async () => {
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: `${product.name} - Crown Mega Store`,
+                    text: `Check out ${product.name} on Crown Mega Store!`,
+                    url: shareUrl
+                })
+            } catch (error) {
+                if (error.name !== 'AbortError') {
+                    console.error('Error sharing:', error)
+                    // Fallback to clipboard
+                    await navigator.clipboard.writeText(shareUrl)
+                    toast.success('Link copied to clipboard!')
+                }
+            }
+        } else {
+            // Fallback for browsers that don't support Web Share API
+            await navigator.clipboard.writeText(shareUrl)
+            toast.success('Link copied to clipboard!')
         }
     }
 
@@ -255,11 +288,27 @@ export default function ProductDetailPage() {
                                     >
                                         Buy Now
                                     </button>
+                                    <button
+                                        className={styles.shareButton}
+                                        onClick={handleShare}
+                                        title="Share this product"
+                                    >
+                                        <FiShare2 size={20} />
+                                    </button>
                                 </>
                             ) : (
-                                <button className={styles.outOfStockButton} disabled>
-                                    Out of Stock
-                                </button>
+                                <>
+                                    <button className={styles.outOfStockButton} disabled>
+                                        Out of Stock
+                                    </button>
+                                    <button
+                                        className={styles.shareButton}
+                                        onClick={handleShare}
+                                        title="Share this product"
+                                    >
+                                        <FiShare2 size={20} />
+                                    </button>
+                                </>
                             )}
                         </div>
 
