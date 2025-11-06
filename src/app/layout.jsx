@@ -10,31 +10,33 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata = {
-  title: "Crown Mega Store - Your One-Stop Shop",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://crownmegastore.vercel.app'),
+  title: {
+    default: "Crown Mega Store - Your One-Stop Shop",
+    template: "%s - Crown Mega Store"
+  },
   description: "Discover amazing products at unbeatable prices. Shop electronics, fashion, home goods and more with fast shipping and great customer service.",
   keywords: "online store, electronics, fashion, home goods, shopping, ecommerce",
   authors: [{ name: "Crown Mega Store" }],
   creator: "Crown Mega Store",
   publisher: "Crown Mega Store",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://crownmegastore.vercel.app'),
   
   // Open Graph
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "/",
     siteName: "Crown Mega Store",
-    title: "Crown Mega Store - Your One-Stop Shop",
+    title: {
+      default: "Crown Mega Store - Your One-Stop Shop",
+      template: "%s - Crown Mega Store"
+    },
     description: "Discover amazing products at unbeatable prices. Shop electronics, fashion, home goods and more with fast shipping and great customer service.",
-    images: [
-      {
-        url: "https://res.cloudinary.com/dusou66pz/image/upload/v1762425470/preview_ltrsbh.png",
-        width: 1200,
-        height: 630,
-        alt: "Crown Mega Store - Your One-Stop Shop",
-        type: "image/png",
-      },
-    ],
+    images: [{
+      url: "https://res.cloudinary.com/dusou66pz/image/upload/v1762425470/preview_ltrsbh.png",
+      width: 1200,
+      height: 630,
+      alt: "Crown Mega Store - Your One-Stop Shop",
+    }],
   },
 
   // Twitter
@@ -42,9 +44,11 @@ export const metadata = {
     card: "summary_large_image",
     site: "@f0rk-it",
     creator: "@f0rk-it",
-    title: "Crown Mega Store - Your One-Stop Shop",
+    title: {
+      default: "Crown Mega Store - Your One-Stop Shop",
+      template: "%s - Crown Mega Store"
+    },
     description: "Discover amazing products at unbeatable prices. Shop electronics, fashion, home goods and more with fast shipping and great customer service.",
-    images: ["/preview.png"],
   },
 
   // Additional metadata
