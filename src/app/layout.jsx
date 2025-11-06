@@ -28,7 +28,7 @@ export const metadata = {
     description: "Discover amazing products at unbeatable prices. Shop electronics, fashion, home goods and more with fast shipping and great customer service.",
     images: [
       {
-        url: "/preview.png",
+        url: "https://res.cloudinary.com/dusou66pz/image/upload/v1762425470/preview_ltrsbh.png",
         width: 1200,
         height: 630,
         alt: "Crown Mega Store - Your One-Stop Shop",
