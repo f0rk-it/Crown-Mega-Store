@@ -1,5 +1,6 @@
 export async function generateMetadata({ params }) {
     const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+    const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://crown-mega-store.vercel.app'
     
     const res = await fetch(`${API_URL}/api/products/${params.id}`, {
         headers: {
@@ -20,7 +21,11 @@ export async function generateMetadata({ params }) {
     const title = product.name
     const description = product.description || `Buy ${product.name} from Crown Mega Store at the best price`
 
-    const productImage = product.image_url || 'https://via.placeholder.com/1200x630?text=Product+Image'
+    // Ensure the image URL is absolute
+    let productImage = product.image_url || 'https://via.placeholder.com/1200x630?text=Product+Image'
+    if (!productImage.startsWith('http')) {
+        productImage = `${SITE_URL}${productImage}`
+    }
     
     return {
         title,
@@ -35,7 +40,9 @@ export async function generateMetadata({ params }) {
                 height: 630,
                 alt: product.name,
             }],
-            url: `/products/${params.id}`,
+            url: `${SITE_URL}/products/${params.id}`,
+            siteName: 'Crown Mega Store',
+            locale: 'en_US',
             
             // Product specific metadata
             availability: product.stock_quantity > 0 ? 'instock' : 'outofstock',
@@ -54,11 +61,21 @@ export async function generateMetadata({ params }) {
                 height: 630,
                 alt: product.name,
             }],
+            site: '@f0rk-it',
+            creator: '@f0rk-it',
         },
         
         // Add structured data for rich results
         alternates: {
-            canonical: `/products/${params.id}`,
+            canonical: `${SITE_URL}/products/${params.id}`,
+        },
+        
+        // Add structured data for products
+        other: {
+            'og:type': 'product',
+            'product:price:amount': product.price,
+            'product:price:currency': 'NGN',
+            'product:availability': product.stock_quantity > 0 ? 'instock' : 'outofstock',
         }
     }
 }
