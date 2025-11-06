@@ -12,7 +12,7 @@ export async function generateMetadata({ params }) {
     }
 
     return {
-        title: `${product.name} - Crown Mega Store`,
+        title: product.name,
         description: `Buy ${product.name} from Crown Mega Store at the best price`,
         openGraph: {
             images: [{ url: product.image_url }]
